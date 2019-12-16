@@ -1,0 +1,25 @@
+<input type='button' value='Show all recipes' onclick='window.location.href="/recipes";'>
+<h1>Recipe of <span style='color:blue'>{{recipe.title}}</span></h1>
+<!-- show the image when available -->
+{{#if recipe.image}}<img src='{{recipe.image}}' alt='{{recipe.title}}'>{{/if}}
+<table>
+    <tbody>
+        <tr><td align='right'>Cuisine</td><td>:</td><td>{{recipe.cuisine}}</td></tr>
+        <tr><td align='right'>Ingredients</td align='right'><td>:</td><td>{{recipe.ingredients}}</td></tr>
+        <tr><td align='right'>Level</td align='right'><td>:</td><td>{{recipe.level}}</td></tr>
+        <tr><td align='right'>Image</td align='right'><td>:</td><td>{{recipe.image}}</td></tr>
+        <tr><td align='right'>Dish type</td align='right'><td>:</td><td>{{recipe.dishType}}</td></tr>
+        <tr><td align='right'>Cuisine</td align='right'><td>:</td><td>{{recipe.cuisine}}</td></tr>
+        <tr><td align='right'>Duration</td align='right'><td>:</td><td>{{recipe.duration}}</td></tr>
+        <tr><td align='right'>Created</td align='right'><td>:</td><td>{{recipe.created}}</td></tr>
+        <tr><td align='right'>Creator</td align='right'><td>:</td><td>{{#if recipe.creator}}{{recipe.creator.name}}{{/if}}</td><td></tr>
+    </tbody>
+</table>
+<!-- show the creator if an image is available!! -->
+{{#if recipe.creator}}
+    {{#if recipe.creator.image}}
+        <div><img src='{{recipe.creator.image}}' alt='{{recipe.creator.name}}'></div>
+    {{/if}}
+{{/if}}
+<!-- to delete the recipe press the following button -->
+<form action='/recipe/{{recipe._id}}/delete' method='get'><input type='submit' value='Delete this recipe immediately'></form>

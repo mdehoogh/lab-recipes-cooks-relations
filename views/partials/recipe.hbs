@@ -1,0 +1,12 @@
+<div class='recipe-list-item'>
+    <td>
+        <input type='button' onclick='deleteRecipe("{{_id}}","{{title}}");' value='Delete'>
+    </td>
+    <td>
+        <!-- click to show the details of the recipe -->
+        <a href='/recipes/{{_id}}' class='recipe-title'>{{title}}</a>
+    </td>
+    <td>
+        <input type='button' onclick='window.location.href="/recipe/{{_id}}/edit";' value='Edit'>
+    </td>
+</div>

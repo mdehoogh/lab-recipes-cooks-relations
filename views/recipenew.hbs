@@ -1,0 +1,66 @@
+<a href='/recipes'>Cancel</a>
+<h2>Fill in the fields and then press the Submit button!</h2>
+<form action='/recipe/new' method='post' id='form'>
+    <table class='input-table'>
+        <tbody>
+            <tr><td>Title</td><td>:</td><td class='input-cell'><input type='text' id='title' name='title'></td class='input-cell'></tr>
+            <tr><td>Ingredients</td><td>:</td><td class='input-cell'><input type='text' id='ingredients' name='ingredients'></td class='input-cell'></tr>
+            <tr><td>Image</td><td>:</td><td class='input-cell'><input type='text' id='image' name='image'><td></tr>
+            <tr><td>Level</td><td>:</td>
+                <td class='input-cell'>
+                    <select id='level' name='level'>
+                    <option value='Easy Peasy' selected>Easy Peasy</option>
+                    <option value='Amateur Chef'>Amateur Chef</option>
+                    <option value='Amateur Chef'>UltraPro Chef</option>
+                    </select>
+                </td class='input-cell'>
+            </tr>
+            <tr><td>Cuisine</td><td>:</td><td class='input-cell'><input type='text' id='cuisine' name='cuisine' maxlength='150'><td></tr>
+            <tr>
+                <td>dishType</td><td>:</td>
+                <td class='input-cell'>
+                    <select id='dishtype' name='dishType'>
+                        <option value='Breakfast'>Breakfast</option>
+                        <option value='Breakfast'>Dish</option>
+                        <option value='Breakfast'>Snack</option>
+                        <option value='Breakfast'>Drink</option>
+                        <option value='Breakfast'>Dessert</option>
+                        <option value='Breakfast'>Other</option>
+                    </select>
+                </td>
+            </tr>
+            <tr><td>Duration</td><td>:</td><td><input type='text' id='duration' name='duration' maxlength='150'><td></tr>
+            <!-- MDH@16DEC2019: I'm going to allow selecting an cook from all cooks send in instead of free editing!!!-->
+            <!--                every option will have the _id of the cook as value, but we still need to make an ObjectId out of it when submitting!!!-->
+            <tr><td>Creator</td><td>:</td>
+                <td class='input-cell'>
+                    <!--input type='text' id='creator' name='creator' maxlength='50'-->
+                    <select id='creator' name='creator'>
+                        {{#each cooks}}
+                            <option value='{{this._id}}'>{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                <td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<input type="button" value='Submit' onclick='javascript:submit();'>
+<script>
+    function submit(){
+        console.log("Checking input!");
+        let title=document.getElementById("title").value.trim();
+        let ingredients=document.getElementById("ingredients").value.trim();
+        let cuisine=document.getElementById("cuisine").value.trim();
+        let duration=document.getElementById("duration").value.trim();
+        let creator=document.getElementById("creator").value.trim();
+        if(title.length>0&&ingredients.length>0&&cuisine.length>0&&duration.length>0&&creator.length>0){
+            // let's parse the ingredients into an array!!!
+            console.log("Input ok!");
+            ////////document.getElementById("ingredients").value="['"+ingredients.split('').join("','")+"']";
+            document.getElementById("form").submit();
+        }else
+            alert("Title, ingredients, cuisine, duration and/or creator missing!");
+    }
+</script>
+

@@ -1,0 +1,24 @@
+<a href='/cooks'>Cancel</a>
+<h2>Enter the name of a cook and then press the Submit button!</h2>
+<form action='/cook/new' method='post' id='form'>
+    <table class='input-table'>
+        <tbody>
+            <tr><td>Name</td><td>:</td><td class='input-cell'><input type='text' id='name' name='name'></td></tr>
+            <tr><td>Image</td><td>:</td><td class='input cell'><input type='text' id='image' name='image'><td></tr>
+        </tbody>
+    </table>
+</form>
+<input type="button" value='Submit' onclick='javascript:submit();'>
+<script>
+    function submit(){
+        console.log("Checking input!");
+        let name=document.getElementById("name").value.trim();
+        if(name.length>0){
+            // let's parse the ingredients into an array!!!
+            console.log("Input ok!");
+            document.getElementById("form").submit();
+        }else
+            alert("Name missing!");
+    }
+</script>
+

@@ -1,0 +1,52 @@
+.recipe-list{
+    display:flex;
+}
+
+.recipe-list-item{
+    color:red;
+    display:flex;
+    flex-direction: column;
+    justify-content: center; /* center horizontally */
+}
+
+h1{
+    color:blue;
+}
+
+#message{
+    padding-top:10px;
+    padding-bottom:10px;
+    width:100%;
+    background-color: blue;
+    color:white;
+}
+
+.recipe-title{
+    color:coral;
+}
+
+.recipe-cuisine{
+    color:blue;
+}
+
+.separator{
+    width:100%;
+    height:5px;
+    background-color: black;
+}
+
+td input,select {
+    width: 100%;
+    box-sizing: border-box;
+}
+.input-table{
+    width:100%;
+}
+.input-table td {
+    white-space: nowrap;
+}
+.input-cell {
+    min-width: 10px;
+    max-width: 100%;
+    width: 99%;
+}

@@ -1,0 +1,26 @@
+<a href='/cooks'>Cancel</a>
+{{#if cook}}
+<h2>Edit the fields of a cook and when satisfied press the Update button!</h2>
+<form action='/cook/update?_id={{cook._id}}' method='post' id='form'>
+    <table class='input-table'>
+        <tbody>
+            <tr><td>Name</td><td>:</td><td class='input-cell'><input type='text' id='name' name='name' value='{{cook.name}}'></td></tr>
+            <tr><td>Image</td><td>:</td><td class='input-cell'><input type='text' id='image' name='image' value='{{cook.image}}'><td></tr>
+        </tbody>
+    </table>
+</form>
+<input type="button" value='Submit' onclick='javascript:submit();'>
+<script>
+    function submit(){
+        console.log("Checking input!");
+        let name=document.getElementById("name").value.trim();
+        if(name.length>0){
+            // let's parse the ingredients into an array!!!
+            console.log("Input ok!");
+            document.getElementById("form").submit();
+        }else
+            alert("Name missing!");
+    }
+</script>
+{{/if}}
+

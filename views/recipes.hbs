@@ -1,0 +1,20 @@
+<h2>Recipes</h2>
+<input type='button' value='Create a new recipe' onclick='window.location.href="/recipe/new";'>
+<p><input type='checkbox' id='ask-delete-confirmation' value='1' checked>&nbsp;Ask for confirmation when deleting a recipe!</p>
+<p>Feel free to click any dish for further details (image included).</p>
+<script>
+    function deleteRecipe(_id,title){
+        if(!document.getElementById("ask-delete-confirmation").checked||confirm("Do you want to delete recipe '"+title+"'?"))
+            window.location.href='/recipe/'+_id+'/delete';
+    }
+    //function editRecipe(_id){window.location.href='/recipe/'+_id+'/edit';}
+</script>
+<table>
+    <tbody>
+        {{#each recipes}}
+            <tr>
+                {{>recipe this}}
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

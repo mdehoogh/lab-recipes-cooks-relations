@@ -1,0 +1,28 @@
+{
+  "name": "lab-recipes-cooks-relations",
+  "version": "1.0.0",
+  "description": "This lab builds on top of the Recipes CRUD exercise. We are going to extend it with cooks and going to make them relate to recipes. We are going to start out with new data. First, make a new database with 2 collections: cooks and recipes. Second, populate the collections using Compass (not mongoimport) and the json files in the data directory. Notice that the creator field in the recipe documents now have an ObjectId as a value. These ObjectIds refer to the OjectIds of the cooks.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdehoogh/lab-recipes-cooks-relations.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdehoogh/lab-recipes-cooks-relations/issues"
+  },
+  "homepage": "https://github.com/mdehoogh/lab-recipes-cooks-relations#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "hbs": "^4.0.6",
+    "mongoose": "^5.8.1",
+    "mongoose-int32": "^0.3.1",
+    "mongoose-long": "^0.2.1",
+    "node-fetch": "^2.6.0"
+  }
+}

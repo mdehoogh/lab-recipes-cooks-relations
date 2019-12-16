@@ -1,0 +1,20 @@
+<input type='button' value='Show all cooks' onclick='window.location.href="/cooks";'>
+<h1>Cook <span style='color:blue'>{{cook.name}}</span></h1>
+{{#if cook.image}}<div><img src='{{cook.image}}' alt='{{cook.name}}'></div>{{/if}}
+<!-- to delete the recipe press the following button -->
+<form action='/cook/{{cook._id}}/delete' method='get'><input type='submit' value='Delete this cook immediately'></form>
+<!--
+<input type='button' onclick='javascript:fetch("/recipes/{{recipe._id}}", {method: "DELETE"});' value='Delete this recipe now'>
+<script>
+    function deleteRecipe(recipeId){
+        var xhr1 = new XMLHttpRequest();
+        xhr1.open('DELETE', "/recipes/"+recipeId, true);
+        xhr1.onreadystatechange = function() {
+            if (this.status == 200 && this.readyState == 4) {
+                console.log("The delete should now have be done!");
+                 dostuff = this.responseText;
+        };//end onreadystate
+        xhr1.send();
+    }
+</script>
+-->

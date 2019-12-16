@@ -1,0 +1,12 @@
+<div class='cook-list-item'>
+    <td>
+        <input type='button' onclick='deleteCook("{{_id}}","{{name}}");' value='Delete'>
+    </td>
+    <td>
+        <!-- click to show the details of the cook -->
+        <a href='/cooks/{{_id}}' class='cook-title'>{{name}}</a>
+    </td>
+    <td>
+        <input type='button' onclick='window.location.href="/cook/{{_id}}/edit";' value='Edit'>
+    </td>
+</div>
