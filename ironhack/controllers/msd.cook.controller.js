@@ -16,83 +16,41 @@ module.exports=(conn)=>{ // requires plugging in the connection to use for creat
 			const cook=new Cook(cookData);
 			// Step 3. Save the newly created instance
 			cook.save().then(data=>{
-				res.send(data); // or whatever else you want to send
+				next(data,req,res,null);
 			}).catch(err=>{
-				res.status(500).send({
-					error:err.message||'Some error occurred trying to add a cook'
-				});
+				next(null,req,res,null);
 			});
 		},
 		findAll:function(req,res,next){
 			Cook.find({})
 			.then(cooks => {
-				res.send(cooks);
+				next(cooks,req,res,null);
 			}).catch(err => {
-				res.status(500).send({
-					error: err.message || 'Some error occurred while retrieving cooks.'
-				});
+				next(null,req,res,null);
 			});
 		},
 		findOne:function(req,res,next){
 			Cook.findById(req.params.cookId)
 			.then(cook => {
-				if(!cook){
-					return res.status(404).send({
-						error: 'Cook with id ' + req.params.cookId + ' not found.'
-					});
-				}
-				res.send(cook);
+				next(cook,req,res,null);
 			}).catch(err => {
-				if(err.kind=='ObjectId'){
-					return res.status(404).send({
-						error: 'Client with id ' + req.params.cookId + ' not found.'
-					});
-				}
-				return res.status(500).send({
-					error: 'Failed to retrieve the cook with id ' + req.params.cookId + '.'
-				});
+				next(null,req,res,null);
 			});
 		},
 		update:function(req,res,next){
 			Cook.findOneAndUpdate({_id:req.params.cookId},{$set:req.body},{new:true})
 			.then(cook => {
-				if(!cook){
-					return res.status(400).send({
-						error:'Cook with id ' + req.params.cookId + 'not found.'
-					});
-				}
-				res.send({'updated':cook});
+				next(cook,req,res,null);
 			}).catch(err => {
-				if(err.kind == 'ObjectId'){
-					return res.send(404).send({
-						error: 'cook with id ' + req.params.cookId + ' not found.'
-					});
-				}
-				return res.status(500).send({
-					body: req.body,
-					error: 'Failed to update the cook with id ' + req.params.cookId + '.'
-				});
+				next(null,req,res,null);
 			});
 		},
 		delete:function(req,res,next){
 			Cook.findOneAndDelete({_id:req.params.cookId})
 			.then(cook => {
-				if(!cook){
-					return res.status(400).send({
-						error: 'Cook with id ' + req.params.cookId + 'not found.'
-					});
-				}
-				res.send({message:'cook deleted successfully.'});
+				next(cook,req,res,null);
 			}).catch(err => {
-				if(err.kind == 'ObjectId'||err.name=='NotFound'){
-					return res.send(404).send({
-						error: 'cook with id ' + req.params.cookId + ' not found.'
-					});
-				}
-				return res.status(500).send({
-					body: req.body,
-					error: 'Failed to delete the cook with id ' + req.params.cookId + '.'
-				});
+				next(null,req,res,null);
 			});
 		},
 	};

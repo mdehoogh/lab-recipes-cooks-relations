@@ -1,7 +1,7 @@
 <a href='/recipes'>Cancel</a>
 {{#if recipe}}
 <h2>Edit the fields and when satisfied press the Update button!</h2>
-<form action='/recipe/update?_id={{recipe._id}}' method='post' id='form'>
+<form action='/recipe/{{recipe._id}}/update' method='post' id='form'>
     <table class='input-table'>
         <tbody>
             <tr><td>Title</td><td>:</td><td class='input-cell'><input type='text' id='title' name='title' value='{{recipe.title}}'></td width='400'></tr>

@@ -26,22 +26,24 @@ module.exports=(conn)=>{ // requires plugging in the connection to use for creat
 			const recipe=new Recipe(recipeData);
 			// Step 3. Save the newly created instance
 			recipe.save().then(data=>{
-				res.send(data); // or whatever else you want to send
+				next(data,req,res,null); // replacing: res.send(data); // or whatever else you want to send
 			}).catch(err=>{
-				res.status(500).send({
-					error:err.message||'Some error occurred trying to add a recipe'
-				});
+				next(data,req,res,null);
+				// res.status(500).send({
+				// 	error:err.message||'Some error occurred trying to add a recipe'
+				// });
 			});
 		},
 		findAll:function(req,res,next){
 			// MDH@16DEC2019: let's see what happens if I use populate on the creator reference!!
 			Recipe.find({})
 			.then(recipes => {
-				res.send(recipes);
+				next(recipes,req,res,next);
 			}).catch(err => {
-				res.status(500).send({
-					error: err.message || 'Some error occurred while retrieving recipes.'
-				});
+				next(null,req,res,next);
+				// res.status(500).send({
+				// 	error: err.message || 'Some error occurred while retrieving recipes.'
+				// });
 			});
 		},
 		findOne:function(req,res,next){
@@ -49,63 +51,69 @@ module.exports=(conn)=>{ // requires plugging in the connection to use for creat
 			Recipe.findById(req.params.recipeId)
 			.populate("creator")
 			.then(recipe => {
-				if(!recipe){
-					return res.status(404).send({
-						error: 'Recipe with id ' + req.params.recipeId + ' not found.'
-					});
-				}
-				res.send(recipe);
+				next(recipe,req,res,next);
+				// if(!recipe){
+				// 	return res.status(404).send({
+				// 		error: 'Recipe with id ' + req.params.recipeId + ' not found.'
+				// 	});
+				// }
+				// res.send(recipe);
 			}).catch(err => {
-				if(err.kind=='ObjectId'){
-					return res.status(404).send({
-						error: 'Client with id ' + req.params.recipeId + ' not found.'
-					});
-				}
-				return res.status(500).send({
-					error: 'Failed to retrieve the recipe with id ' + req.params.recipeId + '.'
-				});
+				next(null,req,res,next);
+				// if(err.kind=='ObjectId'){
+				// 	return res.status(404).send({
+				// 		error: 'Client with id ' + req.params.recipeId + ' not found.'
+				// 	});
+				// }
+				// return res.status(500).send({
+				// 	error: 'Failed to retrieve the recipe with id ' + req.params.recipeId + '.'
+				// });
 			});
 		},
 		update:function(req,res,next){
 			Recipe.findOneAndUpdate({_id:req.params.recipeId},{$set:req.body},{new:true})
 			.then(recipe => {
-				if(!recipe){
-					return res.status(400).send({
-						error:'Recipe with id ' + req.params.recipeId + 'not found.'
-					});
-				}
-				res.send({'updated':recipe});
+				next(recipe,req,res,next);
+				// if(!recipe){
+				// 	return res.status(400).send({
+				// 		error:'Recipe with id ' + req.params.recipeId + 'not found.'
+				// 	});
+				// }
+				// res.send({'updated':recipe});
 			}).catch(err => {
-				if(err.kind == 'ObjectId'){
-					return res.send(404).send({
-						error: 'recipe with id ' + req.params.recipeId + ' not found.'
-					});
-				}
-				return res.status(500).send({
-					body: req.body,
-					error: 'Failed to update the recipe with id ' + req.params.recipeId + '.'
-				});
+				next(null,req,res,next);
+				// if(err.kind == 'ObjectId'){
+				// 	return res.send(404).send({
+				// 		error: 'recipe with id ' + req.params.recipeId + ' not found.'
+				// 	});
+				// }
+				// return res.status(500).send({
+				// 	body: req.body,
+				// 	error: 'Failed to update the recipe with id ' + req.params.recipeId + '.'
+				// });
 			});
 		},
 		delete:function(req,res,next){
 			Recipe.findOneAndDelete({_id:req.params.recipeId})
 			.then(recipe => {
-				if(!recipe){
-					return res.status(400).send({
-						error: 'Recipe with id ' + req.params.recipeId + 'not found.'
-					});
-				}
-				res.send({message:'recipe deleted successfully.'});
+				next(recipe,req,res,null);
+				// if(!recipe){
+				// 	return res.status(400).send({
+				// 		error: 'Recipe with id ' + req.params.recipeId + 'not found.'
+				// 	});
+				// }
+				// res.send({message:'recipe deleted successfully.'});
 			}).catch(err => {
-				if(err.kind == 'ObjectId'||err.name=='NotFound'){
-					return res.send(404).send({
-						error: 'recipe with id ' + req.params.recipeId + ' not found.'
-					});
-				}
-				return res.status(500).send({
-					body: req.body,
-					error: 'Failed to delete the recipe with id ' + req.params.recipeId + '.'
-				});
+				next(null,req,res,null);
+				// if(err.kind == 'ObjectId'||err.name=='NotFound'){
+				// 	return res.send(404).send({
+				// 		error: 'recipe with id ' + req.params.recipeId + ' not found.'
+				// 	});
+				// }
+				// return res.status(500).send({
+				// 	body: req.body,
+				// 	error: 'Failed to delete the recipe with id ' + req.params.recipeId + '.'
+				// });
 			});
 		},
 	};
